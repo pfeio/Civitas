@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Report viewer App</title>
+</head>
+<body>
+
+    <div>
+        <h2>All reports</h2>
+        <ul id="AllReports" />
+    </div>
+    <div>
+        <h2>Search</h2>
+        <input type="text" id="searchCriteria" size="25" />
+        <input type="button" value="Search" onclick="find();" />
+        <p id="FoundReport" />
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/URIs.js"></script>
+    <script>
+
+    $(document).ready(function () {
+      // Send an AJAX request
+      $.getJSON(uriReport)
+          .done(function (data) {
+            // On success, 'data' contains a list of products.
+            $.each(data, function (key, item) {
+              // Add a list item for the product.
+                $('<li>', { text: formatItem(item) }).appendTo($('#AllReports'));
+            });
+          });
+    });
+
+    function formatItem(item) {
+      return item.Creation + ': ' + $('<br/>') + item.Title + ': ' + item.Id + ': ' + item.Description;
+    }
+
+    function find() {
+        var searchCriteria = $('#searchCriteria').val();
+        $.getJSON(uriReportSearch + '/' + searchCriteria)
+          .done(function (data) {
+              $('#FoundReport').text(formatItem(data));
+          })
+          .fail(function (jqXHR, textStatus, err) {
+              $('#FoundReport').text('Error: ' + err);
+          });
+    }
+    </script>
+</body>
+</html>
