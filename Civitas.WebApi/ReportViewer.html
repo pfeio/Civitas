@@ -2,50 +2,116 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Report viewer App</title>
+    <link rel="stylesheet" type="text/css" href="Styles/Layout.css">
 </head>
 <body>
-
-    <div>
-        <h2>All reports</h2>
-        <ul id="AllReports" />
-    </div>
-    <div>
-        <h2>Search</h2>
-        <input type="text" id="searchCriteria" size="25" />
-        <input type="button" value="Search" onclick="find();" />
-        <p id="FoundReport" />
-    </div>
-
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
     <script src="Scripts/URIs.js"></script>
     <script>
+       $(document).ready(function () {
 
-    $(document).ready(function () {
-      // Send an AJAX request
-      $.getJSON(uriReport)
-          .done(function (data) {
-            // On success, 'data' contains a list of products.
-            $.each(data, function (key, item) {
-              // Add a list item for the product.
-                $('<li>', { text: formatItem(item) }).appendTo($('#AllReports'));
-            });
-          });
-    });
+            $('#SearchResults tr').remove();
+            // Send an AJAX request
+            //$.getJSON(uriReport)
+            //    .done(function (data) {
+            //        $('#SearchResults tr').remove();
+            //        // On success
+                    
+            //        if (data.length === 0) {
+            //            $('#SearchResults').text('No records found');
+            //        } else {
+            //            $.each(data, function (key, item) {
+            //                $('#SearchResults').append(formatItem(item));
+            //            });
 
-    function formatItem(item) {
-      return item.Creation + ': ' + $('<br/>') + item.Title + ': ' + item.Id + ': ' + item.Description;
-    }
+            //        }
+            //    }).fail($('#SearchResults').append('Impossible to retrieve the results.'));
+        });
 
-    function find() {
-        var searchCriteria = $('#searchCriteria').val();
-        $.getJSON(uriReportSearch + '/' + searchCriteria)
-          .done(function (data) {
-              $('#FoundReport').text(formatItem(data));
-          })
-          .fail(function (jqXHR, textStatus, err) {
-              $('#FoundReport').text('Error: ' + err);
-          });
-    }
+        function formatItem(item) {
+
+            var d = new Date(item.Creation);
+
+            var result = '<tr class="TableData"><td>' + d.getFullYear() + '/' + d.getMonth() + '/' + d.getDate() +
+                '</td><td>' + item.Title +
+                '</td><td> ' + item.Description +
+                '</td><td>' + item.Id + '</td></tr>';
+
+            return result;
+        }
+
+        //uriReportLoadAll
+        function loadAllReports() {
+            $('#SearchResults tr').remove();
+            $.getJSON(uriReportLoadAll)
+                .done(function (data) {
+                    $.each(data,
+                        function (key, item) {
+                            $('#SearchResults').append(formatItem(item));
+                        });
+                })
+                .fail(function (jqXhr, textStatus, err) {
+                    $('#SearchResults').text('Error: ' + err);
+                });
+        }
+
+        function searchByTitle() {
+            $('#SearchResults tr').remove();
+            var searchCriteria = $('#searchById').val();
+            $.getJSON(uriReportSearch + '/t=' + searchCriteria)
+                .done(function (data) {
+                    $.each(data,
+                        function(key, item) {
+                            $('#SearchResults').append(formatItem(item));
+                        });
+                })
+                .fail(function (jqXhr, textStatus, err) {
+                    $('#SearchResults').text('Error: ' + err);
+                });
+        }
+
+        function searchByDescription() {
+            $('#SearchResults tr').remove();
+            var searchCriteria = $('#searchByDescription').val();
+            $.getJSON(uriReportSearch + '/d=' + searchCriteria)
+                .done(displayResults)
+                .fail(function (jqXhr, textStatus, err) {
+                    $('#SearchResults').append('<tr><td>Error:</td><td>' + err + ' </td></tr>');
+                });
+        }
+
+        function displayResults(data){
+            $.each(data,
+                    function (key, item) {
+                        $('#SearchResults').append(formatItem(item));
+                    });
+        }
+
+        function displayError() {
+            
+        }
     </script>
+
+    <div class="MainSection">
+        <div style="max-width: 300px;">
+            <input type="text" id="searchById" placeholder="Title" size="20" />
+            <input type="button" value="Search" onclick="searchByTitle();" />
+        </div>
+        <div style="max-width: 300px; display: block; ">
+            <input type="text" id="searchByDescription" placeholder="Description" size="20" />
+            <input type="button" value="Search" onclick="searchByDescription();" />
+        </div>
+        <div style="max-width: 600px; display: block; text-align: right">
+            <input type="button" value="Load all reports" onclick="loadAllReports();" />
+        </div>
+        <h3>Search results</h3>
+        <table id="SearchResults" style="border-style: solid; border-width: 1px; border-collapse: collapse" >
+        </table>
+        <div style="align-content: right" id="SearchResultsCount">
+            
+        </div>
+    </div>
+
+
 </body>
 </html>

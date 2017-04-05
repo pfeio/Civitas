@@ -1,0 +1,46 @@
+﻿* {
+    /* first to lines are to enable box-sizing in older browsers */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: arial;
+}
+
+body {
+}
+
+.NavigationBar {
+    position: absolute;
+    left: 10px;
+    max-width: 200px;
+    background-color: aquamarine;
+    border: 1px solid black;
+}
+
+.MainSection 
+{
+    position: static; /* not necessary */
+    margin-left: 240px;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: lightblue;
+    border: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+.InnerRightSection 
+{
+    position: static;
+    margin-right: 0px;
+
+}
+
+.TableData {
+    font-size: 70%;
+}
+
+H3 {
+    font-size:  90%
+}

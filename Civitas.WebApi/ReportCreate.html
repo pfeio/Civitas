@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Report viewer App</title>
+    <link rel="stylesheet" type="text/css" href="Styles/Layout.css">
+</head>
+<body>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="Scripts/URIs.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            
+        });
+
+
+        //var NewReport = {
+        //    Title: 'dummy title',
+        //    Description: 'dummy description'
+        //}
+
+        function submitReport() {
+
+            var newReport = {
+                Title: $('#Title').val(),
+                Description: $('#Description').val()
+            }
+
+            var jqxhr = $.post(uriReport, newReport).done(function() {
+                alert('Report submited!');
+            });
+        };
+    </script>
+    
+    <!--
+    Report {Creation = DateTime.Now, Id = Guid.NewGuid(), Title = "Missing sidewalk" , Description
+
+    -->
+    <table>
+        <thead>
+        <tr>
+            <td>Field</td>
+            <td>Value</td>
+        </tr>
+        </thead>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" id="Title"/></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input type="text" id="Description" /></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="button" value="Submit" id="submitReportBtn"  onclick="submitReport();"></td>
+        </tr>
+    </table>
+</body >
+</html >
