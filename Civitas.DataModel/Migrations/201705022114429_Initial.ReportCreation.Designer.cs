@@ -7,13 +7,13 @@ namespace Civitas.DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration_ReportContext : IMigrationMetadata
+    public sealed partial class InitialReportCreation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration_ReportContext));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialReportCreation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201611201420040_InitialMigration_ReportContext"; }
+            get { return "201705022114429_Initial.ReportCreation"; }
         }
         
         string IMigrationMetadata.Source

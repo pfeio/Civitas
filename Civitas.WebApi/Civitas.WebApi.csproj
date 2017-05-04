@@ -146,9 +146,13 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Civitas.DAL\Civitas.DAL.csproj">
-      <Project>{5d8843bb-b950-48ad-9a71-4a0b3a498759}</Project>
-      <Name>Civitas.DAL</Name>
+    <ProjectReference Include="..\Civitas.DataModel\Civitas.DataModel.csproj">
+      <Project>{86209fa2-5bbd-40d7-8185-48446a760cca}</Project>
+      <Name>Civitas.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Civitas.Entities\Civitas.Entities.csproj">
+      <Project>{0FB3445A-C09C-4E94-B708-430EC9828398}</Project>
+      <Name>Civitas.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

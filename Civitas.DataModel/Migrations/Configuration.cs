@@ -1,3 +1,6 @@
+using System.Data.Entity.ModelConfiguration.Configuration;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
 namespace Civitas.DataModel.Migrations
 {
     using System;
@@ -10,6 +13,7 @@ namespace Civitas.DataModel.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            
         }
 
         protected override void Seed(Civitas.DataModel.ReportContext context)

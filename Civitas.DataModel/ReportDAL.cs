@@ -9,16 +9,12 @@ using Civitas.Entities;
 
 namespace Civitas.DataModel
 {
-    public class ReportDAL : IDisposable    
+    public class ReportDal : IDisposable    
     {
-        private ReportContext ctx;
-        private bool inDebug;
-        //public ReportDAL(ReportContext ctx)
-        //{
-        //    this.ctx = ctx;
-        //}
+        private readonly ReportContext ctx;
+        private readonly bool inDebug;
 
-        public ReportDAL(Boolean debug = false)
+        public ReportDal(Boolean debug = false)
         {
             ctx = new ReportContext();
             inDebug = debug;
@@ -39,13 +35,16 @@ namespace Civitas.DataModel
             return ctx.Reports.FirstOrDefault();
         }
 
+        public IList<Report> GetAllReports()
+        {
+            return ctx.Reports.ToList();
+        }
+
         public Report GetReport(Guid reportToRetrieve)
         {
             return 
                 (ctx.Reports
-                .Include(n => n.Location)
-                .Include(n => n.Reporter)
-                //.Select(n => new {n.Id, n.Creation, n.Description, n.Location, n.Reporter, n.Title ,n.Support.Count})
+
                 .FirstOrDefault(n => n.Id == reportToRetrieve));
 
         }
@@ -68,9 +67,6 @@ namespace Civitas.DataModel
             stubLocation.Id = Guid.Empty;
             var stubUser = new User();
             stubUser.Id = Guid.Empty;
-            r.Location = stubLocation;
-            r.Reporter = stubUser;
-            r.Support = new List<Vote>();
 
             return r;
         }

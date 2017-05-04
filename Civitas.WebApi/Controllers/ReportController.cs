@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-using Civitas.DAL;
+using Civitas.DataModel;
+using Civitas.Entities;
 using Civitas.Models;
 
 namespace Civitas.Controllers
@@ -54,10 +55,13 @@ namespace Civitas.Controllers
             new Report {Creation = DateTime.Now, Id = Guid.NewGuid(), Title = "Missing sidewalk 3" , Description = "There's no sidewalk, so people need to walk on a busy road!"}
         };
 
-        [Route("all")]
+        [HttpGet]
         public IEnumerable<Report> GetAllReports()
         {
-            return existingReports;
+            using (ReportDal ctx = new ReportDal())
+            {
+                return ctx.GetAllReports();
+            }
         }
 
         public IHttpActionResult GetReport(Guid id)
@@ -96,7 +100,11 @@ namespace Civitas.Controllers
         [HttpPost]
         public Boolean CreateReport(Report newReport)
         {
-            this.existingReports.Add(newReport);
+            using (ReportDal ctx = new ReportDal())
+            {
+                this.existingReports.Add(newReport);
+
+            }
             return true;
         }
     }
