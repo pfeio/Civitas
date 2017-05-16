@@ -57,6 +57,7 @@
     <Compile Include="ReportContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportDal.cs" />
+    <Compile Include="ReportInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

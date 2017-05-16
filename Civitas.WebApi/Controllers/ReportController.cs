@@ -64,6 +64,8 @@ namespace Civitas.Controllers
             }
         }
 
+
+
         public IHttpActionResult GetReport(Guid id)
         {
             var report = existingReports.FirstOrDefault((p) => p.Id == id);

@@ -23,11 +23,25 @@ namespace Civitas.DataModel
 
         }
 
+        public ReportContext GetContext()
+        {
+            return ctx;
+        }
+
         public void CreateReport(Report newReport)
         {
             ctx.Reports.Add(newReport);
             int resCount = ctx.SaveChanges();
 
+        }
+
+        public void CreateReport(IList<Report> reportList)
+        {
+            foreach (var report in reportList)
+            {
+                ctx.Reports.Add(report);
+            }
+            ctx.SaveChanges();
         }
 
         public Report GetRandomReport()
