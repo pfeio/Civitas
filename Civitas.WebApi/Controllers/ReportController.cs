@@ -65,7 +65,11 @@ namespace Civitas.Controllers
         }
 
 
-
+        /// <summary>
+        /// Retrieves a specific report with a 200 OK response, give it's ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IHttpActionResult GetReport(Guid id)
         {
             var report = existingReports.FirstOrDefault((p) => p.Id == id);
